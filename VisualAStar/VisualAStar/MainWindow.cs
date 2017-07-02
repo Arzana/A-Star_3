@@ -90,7 +90,11 @@
                 for (i = 0; i < ListViewClosed.Items.Count; i++)
                 {
                     string cur = ListViewClosed.Items[i].Text;
-                    if (AStar.ClosedList[i].Postition.ToString() != cur) ListViewClosed.Items.RemoveAt(i--);
+                    if (i < AStar.ClosedList.Count)
+                    {
+                        if (AStar.ClosedList[i].Postition.ToString() != cur) ListViewClosed.Items.RemoveAt(i--);
+                    }
+                    else ListViewClosed.Items.RemoveAt(i--);
                 }
 
                 for (; i < AStar.ClosedList.Count; i++)
@@ -105,7 +109,11 @@
                 for (i = 0; i < ListViewOpen.Items.Count; i++)
                 {
                     string cur = ListViewOpen.Items[i].Text;
-                    if (AStar.OpenList[i].Postition.ToString() != cur) ListViewOpen.Items.RemoveAt(i--);
+                    if (i < AStar.OpenList.Count)
+                    {
+                        if (AStar.OpenList[i].Postition.ToString() != cur) ListViewOpen.Items.RemoveAt(i--);
+                    }
+                    else ListViewOpen.Items.RemoveAt(i--);
                 }
 
                 for (; i < AStar.OpenList.Count; i++)

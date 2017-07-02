@@ -12,8 +12,20 @@
         public Color ArrowColor { get { return arrow ; } set { arrow = value; ArrowBrush = new SolidBrush(arrow); } }
         public Color GridColor { get { return grid; } set { grid = value; GridPen = new Pen(grid, gridSize); } }
         public Color RouteColor { get { return route; } set { route = value; RoutePen = new Pen(route, routeSize); } }
+        public Color ClosedColor { get { return closed; } set { closed = value; ClosedPen = new Pen(closed, gridSize); } }
+        public Color OpenColor { get { return open; } set { open = value;  OpenPen = new Pen(open, gridSize); } }
 
-        public int GridSize { get { return gridSize; } set { gridSize = value; GridPen = new Pen(grid, gridSize); } }
+        public int GridSize
+        {
+            get { return gridSize; }
+            set
+            {
+                gridSize = value;
+                GridPen = new Pen(grid, gridSize);
+                ClosedPen = new Pen(closed, gridSize);
+                OpenPen = new Pen(open, gridSize);
+            }
+        }
         public int RouteSize { get { return routeSize; } set { routeSize = value; RoutePen = new Pen(route, routeSize); } }
 
         public SolidBrush WallBrush { get; private set; }
@@ -25,6 +37,8 @@
 
         public Pen GridPen { get; private set; }
         public Pen RoutePen { get; private set; }
+        public Pen ClosedPen { get; private set; }
+        public Pen OpenPen { get; private set; }
 
         public Font TextFont { get; set; }
 
@@ -36,7 +50,7 @@
         public int RouteOffset { get { return NodeSize >> 1; } }
         public int MapMargin { get { return 25; } }
 
-        private Color wall, start, end, cur, text, arrow, grid, route;
+        private Color wall, start, end, cur, text, arrow, grid, route, closed, open;
         private int gridSize, routeSize;
         
         public PaintConfig()
@@ -50,6 +64,8 @@
 
             grid = Color.Blue;
             route = Color.Blue;
+            open = Color.Green;
+            closed = Color.Red;
             GridSize = 2;
             RouteSize = 10;
 
@@ -73,6 +89,8 @@
 
             grid = config.grid;
             route = config.route;
+            open = config.open;
+            closed = config.closed;
             GridSize = config.GridSize;
             RouteSize = config.RouteSize;
 

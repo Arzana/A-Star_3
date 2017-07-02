@@ -187,10 +187,15 @@
 
         private void DrawNode(Graphics gfx, Node node)
         {
+            Pen gridPen;
+            if (node.IsInClosedList) gridPen = Config.ClosedPen;
+            else if (node.IsInOpenList) gridPen = Config.OpenPen;
+            else gridPen = Config.GridPen;
+
             if (node.IsImpassable) gfx.FillRectangle(Config.WallBrush, node.DrawRect);
             else
             {
-                gfx.DrawRectangle(Config.GridPen, node.DrawRect);
+                gfx.DrawRectangle(gridPen, node.DrawRect);
 
                 if (Config.ShowParent && node.HasParent) DrawParentArrow(gfx, node.DrawRect.Location, node.Parent.DrawRect.Location);
                 if (Config.ShowHeuristic) DrawString(gfx, node.HeuristicText, node.HeuristicPosition);

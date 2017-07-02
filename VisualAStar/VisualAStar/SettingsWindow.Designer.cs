@@ -46,6 +46,8 @@
             this.LblNodeSize = new System.Windows.Forms.Label();
             this.NumTickCooldown = new System.Windows.Forms.NumericUpDown();
             this.LblTickCooldown = new System.Windows.Forms.Label();
+            this.BtnClosedColor = new System.Windows.Forms.Button();
+            this.BtnOpenColor = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.NumGridPenSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumRoutePenSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumNodeSize)).BeginInit();
@@ -144,7 +146,7 @@
             // 
             // NumGridPenSize
             // 
-            this.NumGridPenSize.Location = new System.Drawing.Point(197, 12);
+            this.NumGridPenSize.Location = new System.Drawing.Point(197, 73);
             this.NumGridPenSize.Minimum = new decimal(new int[] {
             1,
             0,
@@ -162,7 +164,7 @@
             // LblGridPenSize
             // 
             this.LblGridPenSize.AutoSize = true;
-            this.LblGridPenSize.Location = new System.Drawing.Point(111, 14);
+            this.LblGridPenSize.Location = new System.Drawing.Point(111, 75);
             this.LblGridPenSize.Name = "LblGridPenSize";
             this.LblGridPenSize.Size = new System.Drawing.Size(57, 13);
             this.LblGridPenSize.TabIndex = 10;
@@ -170,7 +172,7 @@
             // 
             // NumRoutePenSize
             // 
-            this.NumRoutePenSize.Location = new System.Drawing.Point(197, 44);
+            this.NumRoutePenSize.Location = new System.Drawing.Point(197, 102);
             this.NumRoutePenSize.Minimum = new decimal(new int[] {
             1,
             0,
@@ -188,7 +190,7 @@
             // LblRoutePenSize
             // 
             this.LblRoutePenSize.AutoSize = true;
-            this.LblRoutePenSize.Location = new System.Drawing.Point(111, 46);
+            this.LblRoutePenSize.Location = new System.Drawing.Point(111, 104);
             this.LblRoutePenSize.Name = "LblRoutePenSize";
             this.LblRoutePenSize.Size = new System.Drawing.Size(67, 13);
             this.LblRoutePenSize.TabIndex = 12;
@@ -196,7 +198,7 @@
             // 
             // NumNodeSize
             // 
-            this.NumNodeSize.Location = new System.Drawing.Point(197, 73);
+            this.NumNodeSize.Location = new System.Drawing.Point(197, 131);
             this.NumNodeSize.Maximum = new decimal(new int[] {
             200,
             0,
@@ -219,7 +221,7 @@
             // LblNodeSize
             // 
             this.LblNodeSize.AutoSize = true;
-            this.LblNodeSize.Location = new System.Drawing.Point(111, 75);
+            this.LblNodeSize.Location = new System.Drawing.Point(111, 133);
             this.LblNodeSize.Name = "LblNodeSize";
             this.LblNodeSize.Size = new System.Drawing.Size(57, 13);
             this.LblNodeSize.TabIndex = 14;
@@ -227,7 +229,7 @@
             // 
             // NumTickCooldown
             // 
-            this.NumTickCooldown.Location = new System.Drawing.Point(197, 102);
+            this.NumTickCooldown.Location = new System.Drawing.Point(197, 160);
             this.NumTickCooldown.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -250,17 +252,39 @@
             // LblTickCooldown
             // 
             this.LblTickCooldown.AutoSize = true;
-            this.LblTickCooldown.Location = new System.Drawing.Point(111, 104);
+            this.LblTickCooldown.Location = new System.Drawing.Point(111, 162);
             this.LblTickCooldown.Name = "LblTickCooldown";
             this.LblTickCooldown.Size = new System.Drawing.Size(80, 13);
             this.LblTickCooldown.TabIndex = 16;
             this.LblTickCooldown.Text = "Tick cooldown:";
+            // 
+            // BtnClosedColor
+            // 
+            this.BtnClosedColor.Location = new System.Drawing.Point(188, 12);
+            this.BtnClosedColor.Name = "BtnClosedColor";
+            this.BtnClosedColor.Size = new System.Drawing.Size(84, 23);
+            this.BtnClosedColor.TabIndex = 17;
+            this.BtnClosedColor.Text = "Closed color";
+            this.BtnClosedColor.UseVisualStyleBackColor = true;
+            this.BtnClosedColor.Click += new System.EventHandler(this.BtnClosedColor_Click);
+            // 
+            // BtnOpenColor
+            // 
+            this.BtnOpenColor.Location = new System.Drawing.Point(188, 41);
+            this.BtnOpenColor.Name = "BtnOpenColor";
+            this.BtnOpenColor.Size = new System.Drawing.Size(84, 23);
+            this.BtnOpenColor.TabIndex = 18;
+            this.BtnOpenColor.Text = "Open color";
+            this.BtnOpenColor.UseVisualStyleBackColor = true;
+            this.BtnOpenColor.Click += new System.EventHandler(this.BtnOpenColor_Click);
             // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 248);
+            this.Controls.Add(this.BtnOpenColor);
+            this.Controls.Add(this.BtnClosedColor);
             this.Controls.Add(this.LblTickCooldown);
             this.Controls.Add(this.NumTickCooldown);
             this.Controls.Add(this.LblNodeSize);
@@ -310,5 +334,7 @@
         private System.Windows.Forms.Label LblNodeSize;
         private System.Windows.Forms.NumericUpDown NumTickCooldown;
         private System.Windows.Forms.Label LblTickCooldown;
+        private System.Windows.Forms.Button BtnClosedColor;
+        private System.Windows.Forms.Button BtnOpenColor;
     }
 }

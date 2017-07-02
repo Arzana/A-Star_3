@@ -25,6 +25,8 @@
             BtnArrowColor.BackColor = temp.ArrowColor;
             BtnGridColor.BackColor = temp.GridColor;
             BtnRouteColor.BackColor = temp.RouteColor;
+            BtnClosedColor.BackColor = temp.ClosedColor;
+            BtnOpenColor.BackColor = temp.OpenColor;
             NumGridPenSize.Value = temp.GridSize;
             NumRoutePenSize.Value = temp.RouteSize;
             NumNodeSize.Value = temp.NodeSize;
@@ -109,6 +111,24 @@
             if (DialogColor.ShowDialog() == DialogResult.OK)
             {
                 temp.RouteColor = DialogColor.Color;
+                UpdateGUI();
+            }
+        }
+
+        private void BtnClosedColor_Click(object sender, System.EventArgs e)
+        {
+            if (DialogColor.ShowDialog() == DialogResult.OK)
+            {
+                temp.ClosedColor = DialogColor.Color;
+                UpdateGUI();
+            }
+        }
+
+        private void BtnOpenColor_Click(object sender, System.EventArgs e)
+        {
+            if (DialogColor.ShowDialog() == DialogResult.OK)
+            {
+                temp.OpenColor = DialogColor.Color;
                 UpdateGUI();
             }
         }

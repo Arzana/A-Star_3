@@ -126,6 +126,7 @@
             if (OpenList.Contains(Current))
             {
                 OpenList.Remove(Current);
+                Current.IsInOpenList = false;
                 UpdatedOpenList = true;
             }
         }
@@ -133,6 +134,7 @@
         private static void Tick_AddingToClosedList()
         {
             ClosedList.Add(Current);
+            Current.IsInClosedList = true;
             UpdatedClosedList = true;
         }
 
@@ -201,6 +203,7 @@
             if (!OpenList.Contains(cur))
             {
                 OpenList.Add(cur);
+                cur.IsInOpenList = true;
                 UpdatedOpenList = true;
             }
         }

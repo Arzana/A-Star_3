@@ -12,6 +12,8 @@
         public Node Parent { get; private set; }
         public bool HasParent { get { return Parent != null; } }
         public bool IsImpassable { get; set; }
+        public bool IsInClosedList { get; set; }
+        public bool IsInOpenList { get; set; }
 
         public Rectangle DrawRect { get; private set; }
         public string HeuristicText { get; private set; }
