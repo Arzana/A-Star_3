@@ -20,7 +20,7 @@
         public float Length { get { return (float)Math.Sqrt(LengthSquared); } }
         public float LengthSquared { get { return Dot(this, this); } }
 
-        public static Vector2 Zero { get { return Zero; } }
+        public static Vector2 Zero { get { return zero; } }
         public static Vector2 InvOne { get { return invOne; } }
         public static Vector2 One { get { return one; } }
         public static Vector2 UnitX { get { return unitX; } }

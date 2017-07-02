@@ -10,6 +10,8 @@
         private Painter painter;
         private Map map;
         private bool auto;
+        private SettingsWindow settings;
+        private AboutWindow about;
 
         public MainWindow()
         {
@@ -17,6 +19,8 @@
             painter = new Painter(this);
             UpdateMapSize();
             CurrentState = SimulationState.CreateMap;
+            settings = new SettingsWindow() { TickCooldown = AutoTicker.Interval, Config = painter.Config };
+            about = new AboutWindow();
         }
 
         private void UpdateMapSize()
@@ -48,6 +52,8 @@
             SldWidth.Enabled = false;
             SldHeight.Enabled = false;
             BtnFinalizeSize.Enabled = false;
+            BtnSettings.Enabled = false;
+            LblInfo.Text = "Specify start point";
             CurrentState = SimulationState.SetStart;
         }
 
@@ -57,6 +63,7 @@
             BtnTick.Enabled = true;
             BtnAutoUpdate.Enabled = true;
             CurrentState = SimulationState.FindingPath;
+            LblInfo.Text = "Tick A* or enable auto tick";
             AStar.Initialize(map);
         }
 
@@ -67,25 +74,44 @@
 
         private void Tick()
         {
+            LblInfo.Visible = false;
             if (AStar.Tick())
             {
                 if (!AStar.Failed) painter.SetPath(AStar.Result);
                 BtnTick.Enabled = false;
             }
 
-            Text = $"Visualization of A* ({(AStar.State != AStarState.Done ? AStar.State.ToString() : (AStar.Failed ? "Failed" : "Succeeded"))})";
+            LblStatus.Text = AStar.State != AStarState.Done ? AStar.State.ToString() : (AStar.Failed ? "Failed" : "Suceeded");
             painter.SetCurrent(AStar.Current.Postition);
 
-            ListViewClosed.Items.Clear();
-            for (int i = 0; i < AStar.ClosedList.Count; i++)
+            if (AStar.UpdatedClosedList)
             {
-                ListViewClosed.Items.Add(AStar.ClosedList[i].Postition.ToString());
+                int i;
+                for (i = 0; i < ListViewClosed.Items.Count; i++)
+                {
+                    string cur = ListViewClosed.Items[i].Text;
+                    if (AStar.ClosedList[i].Postition.ToString() != cur) ListViewClosed.Items.RemoveAt(i--);
+                }
+
+                for (; i < AStar.ClosedList.Count; i++)
+                {
+                    ListViewClosed.Items.Add(AStar.ClosedList[i].Postition.ToString());
+                }
             }
 
-            ListViewOpen.Items.Clear();
-            for (int i = 0; i < AStar.OpenList.Count; i++)
+            if (AStar.UpdatedOpenList)
             {
-                ListViewOpen.Items.Add(AStar.OpenList[i].Postition.ToString());
+                int i;
+                for (i = 0; i < ListViewOpen.Items.Count; i++)
+                {
+                    string cur = ListViewOpen.Items[i].Text;
+                    if (AStar.OpenList[i].Postition.ToString() != cur) ListViewOpen.Items.RemoveAt(i--);
+                }
+
+                for (; i < AStar.OpenList.Count; i++)
+                {
+                    ListViewOpen.Items.Add(AStar.OpenList[i].Postition.ToString());
+                }
             }
 
             Invalidate();
@@ -122,7 +148,8 @@
         {
             MouseEventArgs me = e as MouseEventArgs;
             if (!painter.WorkSpace.Contains(me.Location)) return;
-            Vector2 relPos = new Vector2((me.X - painter.WorkSpace.X) / 100, (me.Y - painter.WorkSpace.Y) / 100);
+            Vector2 relPos = new Vector2((me.X - painter.WorkSpace.X) / painter.Config.NodeSize, (me.Y - painter.WorkSpace.Y) / painter.Config.NodeSize);
+            if (!map.Dim.Contains(relPos)) return;
 
             switch (CurrentState)
             {
@@ -149,6 +176,7 @@
             map.SetStart(pos);
             painter.SetStart(pos);
             CurrentState = SimulationState.SetEnd;
+            LblInfo.Text = "Specify end point";
         }
 
         private void SetEndClick(Vector2 pos)
@@ -157,6 +185,7 @@
             painter.SetEnd(pos);
             painter.Initialize(map);
             CurrentState = SimulationState.SetWalls;
+            LblInfo.Text = "Specify Walls or finalize the map";
             BtnFinalizeMap.Enabled = true;
         }
 
@@ -201,10 +230,25 @@
             BtnFinalizeMap.Enabled = false;
             BtnTick.Enabled = false;
             BtnAutoUpdate.Enabled = false;
+            BtnSettings.Enabled = true;
             ListViewClosed.Clear();
             ListViewOpen.Clear();
-            Text = "Visualization of A*";
+            LblStatus.Text = "Reset";
+            LblInfo.Visible = true;
+            LblInfo.Text = "Specify map size";
             UpdateMapSize();
+        }
+
+        private void BtnSettings_Click(object sender, System.EventArgs e)
+        {
+            settings.ShowDialog();
+            AutoTicker.Interval = settings.TickCooldown;
+            UpdateMapSize();
+        }
+
+        private void BtnAbout_Click(object sender, System.EventArgs e)
+        {
+            about.ShowDialog();
         }
     }
 }

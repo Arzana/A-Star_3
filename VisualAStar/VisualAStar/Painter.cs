@@ -27,6 +27,7 @@
         public void Initialize(Map map)
         {
             map.Initialize(Config, offset);
+            hafNode = new Vector2(Config.NodeSize / 2);
         }
 
         public void Reset()

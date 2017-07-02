@@ -34,8 +34,7 @@
         public bool ShowParent { get; set; }
         public int NodeSize { get; set; }
         public int RouteOffset { get { return NodeSize >> 1; } }
-        public int ArrowOffset { get { return 10; } }
-        public int MapMargin { get; set; }
+        public int MapMargin { get { return 25; } }
 
         private Color wall, start, end, cur, text, arrow, grid, route;
         private int gridSize, routeSize;
@@ -61,7 +60,29 @@
             ShowFValue = false;
             ShowParent = true;
             NodeSize = 100;
-            MapMargin = 25;
+        }
+
+        public void Update(PaintConfig config)
+        {
+            WallColor = config.WallColor;
+            StartColor = config.StartColor;
+            EndColor = config.EndColor;
+            CurColor = config.CurColor;
+            TextColor = config.TextColor;
+            ArrowColor = config.ArrowColor;
+
+            grid = config.grid;
+            route = config.route;
+            GridSize = config.GridSize;
+            RouteSize = config.RouteSize;
+
+            TextFont = config.TextFont;
+            NodeSize = config.NodeSize;
+        }
+
+        public PaintConfig Clone()
+        {
+            return MemberwiseClone() as PaintConfig;
         }
     }
 }

@@ -14,6 +14,8 @@
         public static Node Current { get; private set; }
         public static bool Failed { get; private set; }
         public static List<Node> Result { get; private set; }
+        public static bool UpdatedClosedList { get; private set; }
+        public static bool UpdatedOpenList { get; private set; }
 
         private static Map map;
         private static Node[] ajason;
@@ -36,6 +38,8 @@
             Result = null;
             OpenList = null;
             ClosedList = null;
+            UpdatedClosedList = false;
+            UpdatedOpenList = false;
             map = null;
             ajason = null;
             ajasonIndex = 0;
@@ -43,6 +47,9 @@
 
         public static bool Tick()
         {
+            UpdatedClosedList = false;
+            UpdatedOpenList = false;
+
             switch (State)
             {
                 case AStarState.SettingCurrentNode:
@@ -116,12 +123,17 @@
 
         private static void Tick_RemoveFromOpenList()
         {
-            if (OpenList.Contains(Current)) OpenList.Remove(Current);
+            if (OpenList.Contains(Current))
+            {
+                OpenList.Remove(Current);
+                UpdatedOpenList = true;
+            }
         }
 
         private static void Tick_AddingToClosedList()
         {
             ClosedList.Add(Current);
+            UpdatedClosedList = true;
         }
 
         private static void Tick_GetAdjasonNodes()
@@ -186,7 +198,11 @@
         private static void Tick_AddingToOpenList()
         {
             Node cur = ajason[ajasonIndex++];
-            if (!OpenList.Contains(cur)) OpenList.Add(cur);
+            if (!OpenList.Contains(cur))
+            {
+                OpenList.Add(cur);
+                UpdatedOpenList = true;
+            }
         }
 
         private static void Tick_CheckForFailure()

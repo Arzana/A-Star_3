@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.ControllGroup = new System.Windows.Forms.GroupBox();
+            this.BtnReset = new System.Windows.Forms.Button();
             this.BtnAutoUpdate = new System.Windows.Forms.Button();
             this.Splitter = new System.Windows.Forms.SplitContainer();
             this.LblClosed = new System.Windows.Forms.Label();
@@ -48,7 +49,12 @@
             this.LblWidth = new System.Windows.Forms.Label();
             this.SldWidth = new System.Windows.Forms.TrackBar();
             this.AutoTicker = new System.Windows.Forms.Timer(this.components);
-            this.BtnReset = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.LblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.LblInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.BtnSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ControllGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Splitter)).BeginInit();
             this.Splitter.Panel1.SuspendLayout();
@@ -76,12 +82,22 @@
             this.ControllGroup.Controls.Add(this.SldHeight);
             this.ControllGroup.Controls.Add(this.LblWidth);
             this.ControllGroup.Controls.Add(this.SldWidth);
-            this.ControllGroup.Location = new System.Drawing.Point(12, 12);
+            this.ControllGroup.Location = new System.Drawing.Point(12, 27);
             this.ControllGroup.Name = "ControllGroup";
-            this.ControllGroup.Size = new System.Drawing.Size(200, 537);
+            this.ControllGroup.Size = new System.Drawing.Size(200, 509);
             this.ControllGroup.TabIndex = 1;
             this.ControllGroup.TabStop = false;
             this.ControllGroup.Text = "Controlls";
+            // 
+            // BtnReset
+            // 
+            this.BtnReset.Location = new System.Drawing.Point(19, 177);
+            this.BtnReset.Name = "BtnReset";
+            this.BtnReset.Size = new System.Drawing.Size(75, 23);
+            this.BtnReset.TabIndex = 13;
+            this.BtnReset.Text = "Reset";
+            this.BtnReset.UseVisualStyleBackColor = true;
+            this.BtnReset.Click += new System.EventHandler(this.BtnReset_Click);
             // 
             // BtnAutoUpdate
             // 
@@ -111,7 +127,7 @@
             // 
             this.Splitter.Panel2.Controls.Add(this.ListViewOpen);
             this.Splitter.Panel2.Controls.Add(this.LblOpen);
-            this.Splitter.Size = new System.Drawing.Size(188, 325);
+            this.Splitter.Size = new System.Drawing.Size(188, 297);
             this.Splitter.SplitterDistance = 94;
             this.Splitter.TabIndex = 11;
             // 
@@ -130,7 +146,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.ListViewClosed.Location = new System.Drawing.Point(3, 20);
             this.ListViewClosed.Name = "ListViewClosed";
-            this.ListViewClosed.Size = new System.Drawing.Size(88, 302);
+            this.ListViewClosed.Size = new System.Drawing.Size(88, 274);
             this.ListViewClosed.TabIndex = 0;
             this.ListViewClosed.UseCompatibleStateImageBehavior = false;
             this.ListViewClosed.View = System.Windows.Forms.View.List;
@@ -141,7 +157,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.ListViewOpen.Location = new System.Drawing.Point(7, 20);
             this.ListViewOpen.Name = "ListViewOpen";
-            this.ListViewOpen.Size = new System.Drawing.Size(80, 302);
+            this.ListViewOpen.Size = new System.Drawing.Size(80, 274);
             this.ListViewOpen.TabIndex = 1;
             this.ListViewOpen.UseCompatibleStateImageBehavior = false;
             this.ListViewOpen.View = System.Windows.Forms.View.List;
@@ -281,24 +297,64 @@
             // 
             this.AutoTicker.Tick += new System.EventHandler(this.AutoTicker_Tick);
             // 
-            // BtnReset
+            // statusStrip1
             // 
-            this.BtnReset.Location = new System.Drawing.Point(19, 177);
-            this.BtnReset.Name = "BtnReset";
-            this.BtnReset.Size = new System.Drawing.Size(75, 23);
-            this.BtnReset.TabIndex = 13;
-            this.BtnReset.Text = "Reset";
-            this.BtnReset.UseVisualStyleBackColor = true;
-            this.BtnReset.Click += new System.EventHandler(this.BtnReset_Click);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 539);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(284, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip1.Items.Add(LblStatus);
+            this.statusStrip1.Items.Add(LblInfo);
+            // 
+            // LblStatus
+            // 
+            this.LblStatus.Name = "LblStatus";
+            this.LblStatus.Size = new System.Drawing.Size(67, 17);
+            this.LblStatus.Text = "Not Started";
+            // 
+            // LblInfo
+            // 
+            this.LblInfo.Name = "LblInfo";
+            this.LblInfo.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
+            this.LblInfo.Size = new System.Drawing.Size(144, 17);
+            this.LblInfo.Text = "Specify map size";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(284, 24);
+            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Items.Add(BtnSettings);
+            this.menuStrip1.Items.Add(BtnAbout);
+            // 
+            // BtnSettings
+            // 
+            this.BtnSettings.Name = "BtnSettings";
+            this.BtnSettings.Size = new System.Drawing.Size(61, 20);
+            this.BtnSettings.Text = "Settings";
+            this.BtnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
+            // 
+            // BtnAbout
+            // 
+            this.BtnAbout.Name = "BtnAbout";
+            this.BtnAbout.Size = new System.Drawing.Size(52, 20);
+            this.BtnAbout.Text = "About";
+            this.BtnAbout.Click += new System.EventHandler(this.BtnAbout_Click);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 561);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.ControllGroup);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(300, 600);
             this.Name = "MainWindow";
             this.Text = "Visualization of A*";
@@ -315,6 +371,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.SldHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SldWidth)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -339,6 +396,12 @@
         private System.Windows.Forms.Button BtnAutoUpdate;
         private System.Windows.Forms.Timer AutoTicker;
         private System.Windows.Forms.Button BtnReset;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel LblStatus;
+        private System.Windows.Forms.ToolStripStatusLabel LblInfo;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem BtnSettings;
+        private System.Windows.Forms.ToolStripMenuItem BtnAbout;
     }
 }
 

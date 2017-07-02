@@ -26,6 +26,14 @@
             Postition = position;
         }
 
+        public override bool Equals(object obj)
+        {
+            Node other = obj as Node;
+            if (other == null) return false;
+
+            return other.Postition == Postition;
+        }
+
         public void SetDrawValiables(PaintConfig config, Vector2 offset)
         {
             Vector2 drawPos = Postition * config.NodeSize + offset;
